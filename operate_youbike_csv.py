@@ -29,7 +29,7 @@ with open(file_name) as csvfile:
 
 
 
-header = ["youbike_stop_num", "lat", "lng", "max_rental_num", "can_be_rented_num", "time"]
+header = ["youbike_stop_num", "lat", "lng", "max_rental_num", "can_be_rented_num", "rental_per", "time"]
 insertList = []
 insertList.append(header)
 
@@ -43,7 +43,10 @@ for idx, val in enumerate(youbike_stop_list):
     for n_idx, n_val in enumerate(number_list):
         n_val = '{0:04}'.format(int(n_val))
         if n_val == val:
-            insertList.append([youbike_stop_list[idx], lat_list[idx], lng_list[idx], max_rental_num_list[idx], can_be_rented_num_list[n_idx], time_formate])
+            max_num = int(max_rental_num_list[idx])
+            can_rented_num = int(can_be_rented_num_list[n_idx])
+            rental_per = float(max_num - can_rented_num)/float(max_num)
+            insertList.append([youbike_stop_list[idx], lat_list[idx], lng_list[idx], max_rental_num_list[idx], can_be_rented_num_list[n_idx], rental_per, time_formate])
 
 # write file
 
